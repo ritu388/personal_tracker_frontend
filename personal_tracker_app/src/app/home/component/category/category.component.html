@@ -1,0 +1,89 @@
+<div class="container mt-4">
+  <!-- <h2>Categories</h2> -->
+
+  <!-- Button to trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary mb-4"
+    data-bs-toggle="modal"
+    data-bs-target="#addCategoryModal">
+    + Add Category
+  </button>
+
+  <!-- Categories table -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of categories">
+        <td>{{category.id}}</td>
+        <td>{{category.name}}</td>
+        <td>{{category.type}}</td>
+        <td>{{category.description}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addCategoryModal">Edit</button>&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="categories.length === 0" class="alert alert-info">
+    Categories not available.
+  </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div
+  class="modal fade"
+  id="addCategoryModal"
+  tabindex="-1"
+  aria-labelledby="addCategoryLabel"
+  aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addCategoryLabel">Add Category</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="newCategory"> 
+          <div class="mb-3">
+            <input formControlName="name" name="name" 
+                   placeholder="Category Name" 
+                   class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <select class="form-control" formControlName="type">
+              <option value="Income">Income</option>
+              <option value="Expense">Expense</option>
+              <option value="Entertainment">Entertainment</option>
+            </select>
+          </div>
+
+           <div class="mb-3">
+            <input formControlName="des" name="description"  placeholder="Category description" 
+              class="form-control" required>
+          </div>
+
+          <button class="btn btn-primary" type="submit" data-bs-dismiss="modal" (click)="addCategory()">
+            Add Category
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

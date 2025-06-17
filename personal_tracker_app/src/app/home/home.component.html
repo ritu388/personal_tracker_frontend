@@ -1,0 +1,65 @@
+<div class="d-flex flex-column min-vh-100 custom-layout-wrapper">
+  <!-- Header -->
+  <header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+  <!-- Left Section -->
+  <div class="d-flex align-items-center">
+    <button class="btn btn-outline-light me-3" (click)="isMinimized = !isMinimized">
+      <i class="bi bi-list"></i>
+    </button>
+    <h1 class="h5 m-0">PIT</h1>
+    <h4 class="h5 m-0 ms-4">{{ selectedComponent }}</h4>
+  </div>
+
+  <!-- Right Section -->
+  <div class="d-flex align-items-center gap-3">
+    <span class="me-3">Welcome, {{ loginDetails.customerCode }}</span>
+    <select class="form-select form-select-sm bg-dark text-white border-light" style="width: auto;" disabled>
+      <option selected>{{ loginDetails.roleName }}</option>
+    </select>
+  </div>
+</header>
+
+
+  <div class="d-flex flex-grow-1 custom-layout-body">
+
+    <!-- Sidebar -->
+  <nav class="sidebar bg-dark text-white" [ngClass]="{ 'minimized': isMinimized }">
+  <div class="sidenav-scroll">
+    <ul class="nav flex-column py-3 px-2">
+      <li class="nav-item has-submenu" *ngFor="let menu of sidebarJson" [title]="menu.menuName">
+        <a (click)="navigateTOComponent(menu?.routerLink, menu?.menuName)"  class="nav-link text-white d-flex align-items-center" style="cursor: pointer;">
+         <i [ngClass]="menu.icon"></i>
+          <span class="ms-2 menu-label">{{ menu.menuName }}</span>
+        </a>
+        <ul class="submenu list-unstyled ms-3" *ngIf="menu.childMenu?.length > 0">
+          <li *ngFor="let child of menu.childMenu">
+            <a (click)="navigateTOComponent(child?.routerLink, child?.menuName)" class="text-white-50 d-block py-1" style="cursor: pointer;">
+              {{ child.menuName }}
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- 👇 Logout Button -->
+      <li class="nav-item mt-4 border-top pt-3">
+        <a  class="nav-link text-danger d-flex align-items-center" style="cursor: pointer;">
+          <i class="bi bi-box-arrow-right"></i>
+          <span class="ms-2 menu-label">Logout</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+    <!-- Main Content -->
+    <main class="flex-fill p-4 bg-light custom-main-content">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-2">
+    &copy; 2025 Logistics App. All rights reserved.
+  </footer>
+</div>

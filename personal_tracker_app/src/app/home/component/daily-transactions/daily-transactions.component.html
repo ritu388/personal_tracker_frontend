@@ -1,0 +1,80 @@
+<div class="container mt-4">
+
+  <!-- Button to trigger modal -->
+  <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#addExpensesModal">
+    + Add Expenses
+  </button>
+
+  <!-- Categories table -->
+  <table class="table table-bordered table-striped">
+    <thead class="table-light">
+      <tr>
+        <th>ID</th>
+        <th>Amount</th>
+        <th>Type</th>
+        <th>Description</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let category of expenses">
+        <td>{{category.id}}</td>
+        <td>{{category.amount}}</td>
+        <td>{{category.type}}</td>
+        <td>{{category.description}}</td>
+        <td>
+          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addExpensesModal">Edit</button>&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-danger btn-sm">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="expenses.length === 0" class="alert alert-info">
+    Data not available.
+  </div>
+</div>
+
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="addExpensesModal" tabindex="-1" aria-labelledby="addExpensesModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addExpensesModal">Add Expenses</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="dailyExpenses">
+          <div *ngFor="let field of fields" class="mb-3">
+            <label [for]="field.name" class="form-label">{{ field.label }}</label>
+
+            <select *ngIf="field.type === 'select'" [formControlName]="field.name" [id]="field.name"
+              class="form-select">
+              <option value="">Select {{ field.label }}</option>
+              <option *ngFor="let opt of field.option" [value]="opt?.value">
+                {{ opt?.viewValue }}
+              </option>
+            </select>
+
+            <input *ngIf="field.type === 'number'" [type]="field.type" [attr.step]="field.step ? field.step : ''"
+              [formControlName]="field.name" [id]="field.name" class="form-control" />
+            <input *ngIf="field.type==='date'" [type]="'date'" [formControlName]="field.name" [id]="field.name"
+              class="form-control" />
+            <input *ngIf="!field.type && field.name !== 'date'" [type]="'text'" [formControlName]="field.name"
+              [id]="field.name" class="form-control" />
+
+            <div *ngIf="dailyExpenses.get(field.name)?.invalid && dailyExpenses.get(field.name)?.touched"
+              class="text-danger">
+              {{ field.label}} is required
+            </div>
+          </div>
+
+          <button class="btn btn-primary" data-bs-dismiss="modal" [disabled]="dailyExpenses.invalid" type="submit" (click)="onSubmit()">
+            Submit
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

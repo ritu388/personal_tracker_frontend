@@ -1,0 +1,41 @@
+<div class="container mt-4">
+  <h2>Dashboard</h2>
+
+  <div class="row mt-4">
+    <!-- Daily Transactions Card -->
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 shadow">
+        <h5>Daily Transactions</h5>
+        <p class="fs-2 fw-bold">{{ dailyTransactionsCount }}</p>
+        <span class="text-muted">
+          Today's total amount: <strong>{{ dailyTotal | currency:'INR' }}</strong>
+        </span>
+      </div>
+    </div>
+
+    <!-- Current Balance Card -->
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 shadow">
+        <h5>Current Balance</h5>
+        <p class="fs-2 fw-bold">{{ totalBalance | currency:'INR' }}</p>
+        <span class="text-muted">
+          Based on transactions to date
+        </span>
+      </div>
+    </div>
+
+    <!-- Categories Summary Card -->
+    <div class="col-md-4 mb-4">
+      <div class="card p-3 shadow">
+        <h5>Categories Spending</h5>
+        <ul class="list-group mt-3">
+          <li *ngFor="let cat of categories" 
+               class="list-group-item d-flex justify-content-between align-items-center">
+            {{ cat.category }}
+            <span>{{ cat.total_per_category | currency:'INR' }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

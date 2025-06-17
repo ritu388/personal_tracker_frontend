@@ -1,0 +1,23 @@
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh">
+  <div class="card p-4 shadow" style="width: 350px">
+    <h3 class="card-title text-center mb-4">Login</h3>
+
+    <form [formGroup]="loginForm">
+      <div class="mb-3">
+        <label for="email" class="form-label">Email/Mobile_no</label>
+        <input id="email" type="text" class="form-control" placeholder="Enter your email or mobileno" formControlName="loginId">
+      </div>
+
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input id="password" type="password" class="form-control" placeholder="Enter your password" formControlName="password">
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100" (click)="login()">Login</button>
+
+      <div class="text-center mt-3">
+        <a routerLink="/register" class="link-primary">Don’t have an account? Register</a>
+      </div>
+    </form>
+  </div>
+</div>
