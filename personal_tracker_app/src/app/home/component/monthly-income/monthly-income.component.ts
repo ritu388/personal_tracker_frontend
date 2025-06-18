@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { MonthlyIncomeService } from 'src/app/service/monthly_income/monthly-income.service';
 
@@ -23,6 +24,7 @@ export class MonthlyIncomeComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private toster: ToastrService,
+    private spinner: NgxSpinnerService,
     private service: MonthlyIncomeService) {
 
     this.form = this.fb.group({});
@@ -61,6 +63,7 @@ export class MonthlyIncomeComponent implements OnInit {
   }
 
   onSubmit() {
+    this.spinner.show();
     let obj = {
       user_id: this.currentLogin,
       category_id: parseInt(this.form.value.category_id),
@@ -72,12 +75,16 @@ export class MonthlyIncomeComponent implements OnInit {
       this.service.addMonthlySalary(obj).subscribe({
         next: (res: any) => {
           if (res) {
+            this.spinner.hide();
+            this.form.reset();
             this.toster.success('monthly salary added successfully');
           } else {
+            this.spinner.hide();
             this.toster.error('error while adding salary');
           }
         },
         error: (er) => {
+          this.spinner.hide();
           this.toster.error(er);
         }
       });
@@ -85,9 +92,11 @@ export class MonthlyIncomeComponent implements OnInit {
   }
 
   getAllMonthlyList(){
+    this.spinner.show();
     this.service.getAllMonthlyList(this.currentLogin).subscribe({
       next: (res: any) => {
         if (res) {
+          this.spinner.hide();
           this.monthlyList = res.data;
         }
       }
@@ -101,6 +110,17 @@ export class MonthlyIncomeComponent implements OnInit {
         this.getAllMonthlyList();
       } else {
         this.toster.error('error while deleting salary');
+      }
+    });
+  }
+
+  getMonthlyExpensesById(Id: any) {
+    this.spinner.show();
+    this.service.getMonthlySalaryById(Id).subscribe((res: any) => {
+      if (res) {
+        this.spinner.hide();
+        console.log(res);
+        this.form.patchValue(res.data);
       }
     });
   }

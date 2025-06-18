@@ -12,10 +12,7 @@
 
   <!-- Right Section -->
   <div class="d-flex align-items-center gap-3">
-    <span class="me-3">Welcome, {{ loginDetails.customerCode }}</span>
-    <select class="form-select form-select-sm bg-dark text-white border-light" style="width: auto;" disabled>
-      <option selected>{{ loginDetails.roleName }}</option>
-    </select>
+    <span class="me-3">Welcome, {{ loginDetails }}</span>
   </div>
 </header>
 
@@ -44,7 +41,7 @@
       <li class="nav-item mt-4 border-top pt-3">
         <a  class="nav-link text-danger d-flex align-items-center" style="cursor: pointer;">
           <i class="bi bi-box-arrow-right"></i>
-          <span class="ms-2 menu-label">Logout</span>
+          <span class="ms-2 menu-label" (click)="logout()">Logout</span>
         </a>
       </li>
     </ul>

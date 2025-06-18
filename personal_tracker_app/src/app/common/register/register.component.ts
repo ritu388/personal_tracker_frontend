@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/service/auth/login.service';
 
 @Component({
@@ -14,7 +16,9 @@ export class RegisterComponent implements OnInit {
   msg: any;
   constructor(
     private service: LoginService,
-    private router: Router
+    private router: Router,
+    private toster: ToastrService,
+    private spinner: NgxSpinnerService
   ) { }
 
   ngOnInit(): void {
@@ -27,6 +31,7 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(){
+    this.spinner.show();
     this.submitForm = true;
     let obj = {
       full_name: this.registerForm.value.full_name,
@@ -34,23 +39,29 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password,
       mobile_no: this.registerForm.value.mobile_no 
     }
-
+    console.log('check form', this.registerForm);
     if (this.registerForm.valid) {
       this.service.register(obj).subscribe({
         next: (res: any) => {
           if (res) {
-            alert('login  successfully');
+            this.spinner.hide();
+            this.toster.success("Registration successfully");
             this.router.navigate(['login']);
           } else {
-            console.error('errorr while registrations');
+            this.spinner.hide();
+            this.toster.error('errorr while registrations');
           }
         },
         error: (er) =>{
-          console.error('error while registration');
+          this.spinner.hide();
+          this.toster.error(er);
         }
       });
+    } else {
+      this.spinner.hide();
+      this.toster.info('please fill the required fields');
     }
-  }
+  } 
 
   matchPassword(value: any){
     if (value.target.value === this.registerForm.value.confirm_password) {

@@ -10,7 +10,7 @@ export class HomeComponent implements OnInit {
 
   isMinimized = false;
   selectedComponent: any = 'Dashboard';
-  loginDetails: any = [];
+  loginDetails: any = localStorage.getItem('full_name');
   sidebarJson: any = [
     {
       Id: 1, menuName: 'Dashboard', icon: 'bi bi-speedometer2',
@@ -38,5 +38,14 @@ export class HomeComponent implements OnInit {
   navigateTOComponent(path: any, menuName: any) {
     this.selectedComponent = menuName;
     this.router.navigate([path]);
+  }
+
+  logout() {
+    localStorage.removeItem('email');
+    localStorage.removeItem('full_name');
+    localStorage.removeItem('loginId');
+    localStorage.removeItem('mobile_no');
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
   }
 }
