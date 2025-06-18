@@ -24,7 +24,8 @@
         <td>{{data.year}}</td>
         <td>{{data.salary}}</td>
         <td>
-          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addMonthlySalary">
+          <button class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal"
+          data-bs-target="#addMonthlySalary" (click)="getMonthlyExpensesById(data.id)">
             Edit
           </button>&nbsp;&nbsp;&nbsp;
           <button class="btn btn-danger btn-sm" (click)="deleteMonthlySalary(data?.id)">
@@ -48,7 +49,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addMonthlySalary">Add Monthly Salary</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="form.reset()">
         </button>
       </div>
       <div class="modal-body">

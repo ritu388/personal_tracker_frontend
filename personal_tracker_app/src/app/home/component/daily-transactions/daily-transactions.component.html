@@ -17,14 +17,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let category of expenses">
-        <td>{{category.id}}</td>
-        <td>{{category.amount}}</td>
-        <td>{{category.type}}</td>
-        <td>{{category.description}}</td>
+      <tr *ngFor="let data of expenses">
+        <td>{{data.id}}</td>
+        <td>{{data.amount}}</td>
+        <td>{{data.type}}</td>
+        <td>{{data.description}}</td>
         <td>
-          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addExpensesModal">Edit</button>&nbsp;&nbsp;&nbsp;
-          <button class="btn btn-danger btn-sm">Delete</button>
+          <button class="btn btn-warning btn-sm mr-1" data-bs-toggle="modal" 
+          data-bs-target="#addExpensesModal" (click)="getDailyExpenseById(data.id)">
+            Edit
+          </button>&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-danger btn-sm" (click)="deleteExpenses(data.id)">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -41,7 +44,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="addExpensesModal">Add Expenses</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="dailyExpenses.reset()">
         </button>
       </div>
       <div class="modal-body">

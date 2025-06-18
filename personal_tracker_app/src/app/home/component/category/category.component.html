@@ -28,8 +28,11 @@
         <td>{{category.type}}</td>
         <td>{{category.description}}</td>
         <td>
-          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addCategoryModal">Edit</button>&nbsp;&nbsp;&nbsp;
-          <button class="btn btn-danger btn-sm">Delete</button>
+          <button class="btn btn-warning btn-sm mr-1" data-bs-target="#addCategoryModal" data-bs-toggle="modal" 
+          (click)="getCategoryById(category.id)">
+            Edit
+          </button>&nbsp;&nbsp;&nbsp;
+          <button class="btn btn-danger btn-sm" (click)="deleteCategory(category.id)">Delete</button>
         </td>
       </tr>
     </tbody>
@@ -55,7 +58,7 @@
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
-          aria-label="Close">
+          aria-label="Close" (click)="newCategory.reset()">
         </button>
       </div>
       <div class="modal-body">
