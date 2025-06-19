@@ -1,6 +1,6 @@
 <div class="d-flex flex-column min-vh-100 custom-layout-wrapper">
   <!-- Header -->
-  <header class="bg-dark text-white p-3 d-flex justify-content-between align-items-center">
+  <header class="text-white p-3 d-flex justify-content-between align-items-center" style="background-color: #3F51B5;">
   <!-- Left Section -->
   <div class="d-flex align-items-center">
     <button class="btn btn-outline-light me-3" (click)="isMinimized = !isMinimized">
@@ -20,7 +20,7 @@
   <div class="d-flex flex-grow-1 custom-layout-body">
 
     <!-- Sidebar -->
-  <nav class="sidebar bg-dark text-white" [ngClass]="{ 'minimized': isMinimized }">
+  <nav class="sidebar text-white" [ngClass]="{ 'minimized': isMinimized }" style="background-color: #3F51B5;">
   <div class="sidenav-scroll">
     <ul class="nav flex-column py-3 px-2">
       <li class="nav-item has-submenu" *ngFor="let menu of sidebarJson" [title]="menu.menuName">
@@ -56,7 +56,7 @@
   </div>
 
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-2">
-    &copy; 2025 Logistics App. All rights reserved.
+  <footer class="text-white text-center py-2" >
+    <span style="color: black;"> 2025 Personal Income Tracker App. All rights reserved. </span>&copy; 
   </footer>
 </div>
